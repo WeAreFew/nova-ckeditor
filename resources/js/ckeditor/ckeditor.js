@@ -36,6 +36,8 @@ import Link from '@ckeditor/ckeditor5-link/src/link'
 import Image from '@ckeditor/ckeditor5-image/src/image'
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle'
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload'
+import ImageResizeEditing from '@ckeditor/ckeditor5-image/src/imageresize/imageresizeediting';
+import ImageResizeHandles from '@ckeditor/ckeditor5-image/src/imageresize/imageresizehandles';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar'
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption'
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
@@ -106,6 +108,8 @@ export default class CkEditor extends ClassicEditorBase {
             Image,
             ImageStyle,
             ImageUpload,
+            ImageResizeEditing,
+            ImageResizeHandles,
             ImageCaption,
             ImageToolbar,
             ImageTextAlternative,
