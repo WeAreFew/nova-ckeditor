@@ -7,3 +7,4 @@ composer.lock
 package-lock.json
 /webpack.mix.js
 .idea
+.DS_Store

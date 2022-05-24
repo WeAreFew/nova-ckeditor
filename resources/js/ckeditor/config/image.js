@@ -19,6 +19,7 @@ export default {
             'alignLeft',
             'alignCenter',
             'alignRight',
-        ]
+        ],
+        resizeUnit: 'px'
     }
 }
