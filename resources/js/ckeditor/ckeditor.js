@@ -62,6 +62,11 @@ import Video from "./plugins/video/video"
 import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting'
 import ElementAddAttributes from './plugins/element-attribute/src/add-attribute-to-element'
 
+// Collaboration
+import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges'
+import TrackChangesData from '@ckeditor/ckeditor5-track-changes/src/trackchangesdata'
+import Comments from '@ckeditor/ckeditor5-comments/src/comments'
+
 // Extend the Base Class
 export default class CkEditor extends ClassicEditorBase {
 
@@ -76,7 +81,8 @@ export default class CkEditor extends ClassicEditorBase {
             ...require('./config/toolbar').default,
             ...require('./config/headings').default,
             ...require('./config/html').default,
-            ...require('./config/video').default
+            ...require('./config/video').default,
+            ...require('./config/comment').default
         }
     }
 
@@ -122,7 +128,10 @@ export default class CkEditor extends ClassicEditorBase {
             SourceEditing,
             Indent,
             IndentBlock,
-            ElementAddAttributes
+            ElementAddAttributes,
+            TrackChanges,
+            TrackChangesData,
+            Comments
         ]
     }
 }
