@@ -25,6 +25,10 @@ export default {
             'snippetBrowser',
             'htmlEmbed',
             '|',
+            'trackChanges',
+            '|',
+            'comment',
+            '|',
             'undo',
             'redo'
         ]

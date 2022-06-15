@@ -65,6 +65,10 @@ import ElementAddAttributes from './plugins/element-attribute/src/add-attribute-
 // allow html classes/Styles
 import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport'
 
+// Collaboration
+import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges'
+import Comments from '@ckeditor/ckeditor5-comments/src/comments'
+
 // Extend the Base Class
 export default class CkEditor extends ClassicEditorBase {
 
@@ -136,7 +140,9 @@ export default class CkEditor extends ClassicEditorBase {
             Indent,
             IndentBlock,
             ElementAddAttributes,
-            GeneralHtmlSupport
+            GeneralHtmlSupport,
+            TrackChanges,
+            Comments
         ]
     }
 }
