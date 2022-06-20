@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Mostafaznv\NovaCkEditor\ImageStorage;
+
+class Comment extends Model
+{
+    protected $fillable = [
+        'thread_id', 
+        'content', 
+        'resource_id', 
+        'resource', 
+        'user_id'
+    ];
+}
