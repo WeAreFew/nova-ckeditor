@@ -52,6 +52,9 @@ class FieldServiceProvider extends ServiceProvider
             # views
             __DIR__ . '/../stubs/views' => resource_path('views/ckeditor'),
 
+            # routes
+            __DIR__ . '/../stubs/routes/collaboration.stub' => base_path('routes/web/collaboration.php'),
+
             # migrations
             __DIR__ . '/../stubs/migrations/2021_01_01_000000_create_images_table.stub' => database_path('migrations/2021_01_01_000000_create_images_table.php'),
             __DIR__ . '/../stubs/migrations/2021_01_01_000000_create_videos_table.stub' => database_path('migrations/2021_01_01_000000_create_videos_table.php'),
