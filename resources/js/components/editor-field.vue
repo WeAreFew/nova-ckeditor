@@ -1,11 +1,19 @@
 <template>
     <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
+            <div ref="presenceList"></div>
             <textarea ref="editor" class="hidden" :id="field.attribute" :class="errorClasses" :value="value" />
 
             <media-browser @select="$options.editor.execute('imageBrowser', $event)" type="image" :field-key="$options.uuid + '-image'" :multiple="true" />
             <media-browser @select="$options.editor.execute('videoBrowser', $event)" type="video" :field-key="$options.uuid + '-video'" :multiple="true" :has-larupload-trait="field.videoHasLaruploadTrait" />
             <snippet-browser :field-key="$options.uuid" :snippets="field.snippetBrowser" />
+
+            <div ref="revision">
+                <div>
+                    <div ref="revisionEditor"></div>
+                    <div ref="revisionSidebar"></div>
+                </div>
+            </div>
         </template>
     </default-field>
 </template>
@@ -16,6 +24,7 @@ import SnippetBrowser from "./snippet-browser"
 import MediaBrowser from "./media-browser"
 import HasUUID from "./mixins/hasUUID"
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import CryptoJS from 'crypto-js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasUUID],
@@ -58,6 +67,23 @@ export default {
                 content: this.field.contentLanguage
             },
             toolbar: {items: this.field.toolbar},
+            cloudServices: {
+                tokenUrl: 'https://90033.cke-cs.com/token/dev/183479f3ff724c1c2cddfad0fe18428f06763418c64dde33aada0551ed25?limit=10',
+                uploadUrl: 'https://90033.cke-cs.com/easyimage/upload/',
+                webSocketUrl: 'wss://90033.cke-cs.com/ws'
+            },
+            collaboration: {
+                channelId: CryptoJS.MD5(`${this.resourceName}_${this.resourceId}`).toString()
+            },
+            presenceList: {
+                container: this.$refs.presenceList
+            },
+            revisionHistory: {
+                editorContainer: this.$refs.editor,
+                viewerContainer: this.$refs.revision,
+                viewerEditorElement: this.$refs.revisionViewer,
+                viewerSidebarContainer: this.$refs.revisionSidebar
+            },
             ...this.field.toolbarOptions
         }
 

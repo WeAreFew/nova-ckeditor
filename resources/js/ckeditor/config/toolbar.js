@@ -1,6 +1,8 @@
 export default {
     toolbar: {
         items: [
+            'revisionHistory',
+            '|',
             'heading',
             'horizontalLine',
             '|',
