@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CKEditor;
 
+use App\Http\Controllers\Controller;
 use App\Models\Suggestion;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class SuggestionController extends Controller
 {
     public function get(Suggestion $suggestion)
     {
