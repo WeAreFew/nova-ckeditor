@@ -2,6 +2,7 @@
 
 namespace Mostafaznv\NovaCkEditor;
 
+use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
 use Mostafaznv\Larupload\Traits\Larupload;
@@ -170,6 +171,7 @@ class CkEditor extends Field
             'contentLanguage'        => $this->contentLanguage,
             'shouldShow'             => $this->shouldBeExpanded(),
             'videoHasLaruploadTrait' => $this->hasLaruploadTrait('App\Models\Video'),
+            'user'                   => Auth::user(),
         ]);
     }
 

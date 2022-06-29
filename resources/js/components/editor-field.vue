@@ -2,7 +2,11 @@
     <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
             <div ref="presenceList"></div>
-            <textarea ref="editor" class="hidden" :id="field.attribute" :class="errorClasses" :value="value" />
+
+            <div>
+                <div ref="editor" class="hidden" :id="field.attribute" :class="errorClasses" :value="value" />
+                <div ref="sidebar" class="editorSidebar"></div>
+            </div>
 
             <media-browser @select="$options.editor.execute('imageBrowser', $event)" type="image" :field-key="$options.uuid + '-image'" :multiple="true" />
             <media-browser @select="$options.editor.execute('videoBrowser', $event)" type="video" :field-key="$options.uuid + '-video'" :multiple="true" :has-larupload-trait="field.videoHasLaruploadTrait" />
@@ -28,7 +32,7 @@ import CryptoJS from 'crypto-js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasUUID],
-    props: ['resourceName', 'resourceId', 'field', 'toolbar'],
+    props: ['resourceName', 'resourceId', 'field', 'toolbar', 'user'],
     components: {SnippetBrowser, MediaBrowser},
     methods: {
         setInitialValue() {
@@ -57,6 +61,7 @@ export default {
         this.$options.uuid = this.uuid()
     },
     mounted() {
+        const userInfo = `user.id=${this.field.user.id}&user.name=${this.field.user.first_name} ${this.field.user.last_name}&role=writer`
         const config = {
             attribute: this.$options.uuid,
             imageBrowser: this.field.imageBrowser,
@@ -67,8 +72,9 @@ export default {
                 content: this.field.contentLanguage
             },
             toolbar: {items: this.field.toolbar},
+            sidebar: {container: this.$refs.sidebar},
             cloudServices: {
-                tokenUrl: 'https://90033.cke-cs.com/token/dev/183479f3ff724c1c2cddfad0fe18428f06763418c64dde33aada0551ed25?limit=10',
+                tokenUrl: 'https://90033.cke-cs.com/token/dev/183479f3ff724c1c2cddfad0fe18428f06763418c64dde33aada0551ed25?' + userInfo,
                 uploadUrl: 'https://90033.cke-cs.com/easyimage/upload/',
                 webSocketUrl: 'wss://90033.cke-cs.com/ws'
             },
@@ -141,4 +147,17 @@ export default {
 
     .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused
         box-shadow: none
+
+.editorSidebar
+    padding: 0 10px
+    position: relative
+    min-width: var(--ck-sample-sidebar-width)
+    font-size: 20px
+    background: hsl(0, 0%, 98%)
+    border: 1px solid hsl(0, 0%, 77%)
+    border-left: 0
+    border-top: 0
+    overflow: hidden
+    min-height: 100%
+
 </style>

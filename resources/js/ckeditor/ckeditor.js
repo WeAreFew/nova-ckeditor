@@ -92,6 +92,7 @@ export default class CkEditor extends ClassicEditorBase {
             ...require('./config/headings').default,
             ...require('./config/html').default,
             ...require('./config/video').default,
+            ...require('./config/comments').default,
             htmlSupport: {
                 allow: [
                     {
