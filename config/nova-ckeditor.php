@@ -266,4 +266,10 @@ return [
             ]
         ]
     ],
+
+    'licenseKey' => [
+        'tokenUrl' => '',
+        'uploadUrl' => '',
+        'webSocketUrl' => '',
+    ],
 ];

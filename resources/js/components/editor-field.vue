@@ -3,8 +3,8 @@
         <template slot="field">
             <div ref="presenceList"></div>
 
-            <div>
-                <div ref="editor" class="hidden" :id="field.attribute" :class="errorClasses" :value="value" />
+            <div class="ckContainer">
+                <div ref="editor" class="hidden mainEditor" :id="field.attribute" :class="errorClasses" :value="value" />
                 <div ref="sidebar" class="editorSidebar"></div>
             </div>
 
@@ -12,10 +12,10 @@
             <media-browser @select="$options.editor.execute('videoBrowser', $event)" type="video" :field-key="$options.uuid + '-video'" :multiple="true" :has-larupload-trait="field.videoHasLaruploadTrait" />
             <snippet-browser :field-key="$options.uuid" :snippets="field.snippetBrowser" />
 
-            <div ref="revision">
-                <div>
-                    <div ref="revisionEditor"></div>
-                    <div ref="revisionSidebar"></div>
+            <div ref="revision" id="revision-viewer-container">
+                <div class="ckContainer">
+                    <div ref="revisionEditor" class="revisionEditor"></div>
+                    <div ref="revisionSidebar" class="editorSidebar"></div>
                 </div>
             </div>
         </template>
@@ -32,7 +32,7 @@ import CryptoJS from 'crypto-js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasUUID],
-    props: ['resourceName', 'resourceId', 'field', 'toolbar', 'user'],
+    props: ['resourceName', 'resourceId', 'field', 'toolbar', 'user', 'licenseKey'],
     components: {SnippetBrowser, MediaBrowser},
     methods: {
         setInitialValue() {
@@ -74,9 +74,9 @@ export default {
             toolbar: {items: this.field.toolbar},
             sidebar: {container: this.$refs.sidebar},
             cloudServices: {
-                tokenUrl: 'https://90033.cke-cs.com/token/dev/183479f3ff724c1c2cddfad0fe18428f06763418c64dde33aada0551ed25?' + userInfo,
-                uploadUrl: 'https://90033.cke-cs.com/easyimage/upload/',
-                webSocketUrl: 'wss://90033.cke-cs.com/ws'
+                tokenUrl: this.field.licenseKey.tokenUrl + '?' + userInfo,
+                uploadUrl: this.field.licenseKey.uploadUrl,
+                webSocketUrl: this.field.licenseKey.webSocketUrl
             },
             collaboration: {
                 channelId: CryptoJS.MD5(`${this.resourceName}_${this.resourceId}`).toString()
@@ -148,16 +148,57 @@ export default {
     .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused
         box-shadow: none
 
+.ck.ck-editor
+    position: relative
+    z-index: 10
+    width: 60%
+
+.ckContainer
+    .ck.ck-editor
+        display: flex
+        flex-direction: column
+
+    .ck.ck-editor__editable
+        height: 100% !important
+
+.ck.ck-editor__main
+    height: 100%
+
+.ck.ck-editor__editable
+    border-bottom-right-radius: 0 !important
+
+.ck.ck-toolbar
+    border-top-right-radius: 0 !important
+
+.mainEditor
+    width: 60%
+
+.ckContainer
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    position: relative
+    width: 100%
+    justify-content: center
+    align-items: stretch
+
 .editorSidebar
     padding: 0 10px
     position: relative
-    min-width: var(--ck-sample-sidebar-width)
+    width: 40%
+    min-width: 290px
     font-size: 20px
     background: hsl(0, 0%, 98%)
     border: 1px solid hsl(0, 0%, 77%)
     border-left: 0
-    border-top: 0
-    overflow: hidden
+    border-top-right-radius: 10px
+    border-bottom-right-radius: 10px
+    overflow-x: hidden
+    overflow-y: auto
     min-height: 100%
+
+#revision-viewer-container
+    display: none
+    width: 100%
 
 </style>

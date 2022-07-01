@@ -172,6 +172,11 @@ class CkEditor extends Field
             'shouldShow'             => $this->shouldBeExpanded(),
             'videoHasLaruploadTrait' => $this->hasLaruploadTrait('App\Models\Video'),
             'user'                   => Auth::user(),
+            'licenseKey'             => [
+                                            'tokenUrl' => config('nova-ckeditor.licenseKey.tokenUrl'),
+                                            'uploadUrl' => config('nova-ckeditor.licenseKey.uploadUrl'),
+                                            'webSocketUrl' => config('nova-ckeditor.licenseKey.webSocketUrl'),
+                                        ],
         ]);
     }
 
