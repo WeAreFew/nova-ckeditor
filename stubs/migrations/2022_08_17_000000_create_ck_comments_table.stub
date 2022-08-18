@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCkCommentsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('ck_comments', function (Blueprint $table) {
+            $table->string('id');
+            $table->json('attributes')->nullable();
+            $table->string('author');
+            $table->text('content');
+            $table->boolean('isEditable')->default(false);
+            $table->boolean('isReadOnly')->default(false);
+            $table->boolean('isRemovable')->default(true);
+            $table->string('threadId');
+            $table->integer('weight')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('ck_comments');
+    }
+}

@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCkSuggestionsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('ck_suggestions', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('type');
+            $table->string('subType')->nullable();
+            $table->string('authorId');
+            $table->json('data')->nullable();
+            $table->json('attributes')->nullable();
+            $table->string('previous')->nullable();
+            $table->string('next')->nullable();
+            $table->string('commentThread')->nullable();
+            $table->string('head')->nullable();
+            $table->boolean('hasComments');
+            $table->boolean('isMultiRange')->default(false);
+            $table->boolean('isInContent')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('ck_suggestions');
+    }
+}

@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CkSuggestion;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class CkSuggestionController extends Controller
+{
+    public function index(CkSuggestion $suggestion)
+    {
+        return $suggestion->toJson();
+    }
+    
+    public function create(Request $request)
+    {
+        $author = Auth::user();
+        $suggestionData = $request->all();
+
+        $newSuggestion = new CkSuggestion();
+        $newSuggestion->id = $suggestionData['id'];
+        $newSuggestion->type = $suggestionData['type'];
+        $newSuggestion->authorId = 'user-' . $author->id;
+        $newSuggestion->data = $suggestionData['data'];
+        $newSuggestion->attributes = json_encode($suggestionData['attributes']);
+        $newSuggestion->hasComments = $suggestionData['hasComments'];
+        $newSuggestion->head = $suggestionData['originalSuggestionId'];
+
+        try {
+            $newSuggestion->save();
+            return response()
+                ->json($newSuggestion);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function update(CkSuggestion $suggestion, Request $request)
+    {
+        $suggestionData = $request->all();
+
+        $suggestion->data = $suggestionData['data'];
+        $suggestion->attributes = json_encode($suggestionData['attributes']);
+        $suggestion->hasComments = $suggestionData['hasComments'];
+        $suggestion->head = $suggestionData['originalSuggestionId'];
+        
+        try {
+            $suggestion->save();
+            return response()
+                ->json($suggestion);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy(CkSuggestion $suggestion)
+    {
+        $suggestionId = $suggestion->id;
+
+        try {
+            $suggestion->delete();
+            return response()->json([
+                'id' => $suggestionId,
+            ], 200);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+}

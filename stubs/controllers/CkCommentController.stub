@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CkComment;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class CkCommentController extends Controller
+{
+    public function index(CkComment $comment)
+    {
+        return $comment->toJson();
+    }
+
+    public function getCommentsByThread($threadId)
+    {
+        $comments = CkComment::where('threadId', $threadId)
+            ->get();
+
+        return $comments;
+    }
+    
+    public function create(Request $request)
+    {
+        $author = Auth::user();
+        $commentData = $request->all();
+
+        $newComment = new CkComment();
+        $newComment->id = $commentData['commentId'];
+        $newComment->content = $commentData['content'];
+        $newComment->attributes = json_encode($commentData['attributes']);
+        $newComment->threadId = $commentData['threadId'];
+        $newComment->author = 'user-' . $author->id;
+        // $newComment->isEditable = $commentData['isEditable'];
+        // $newComment->isReadOnly = $commentData['isReadOnly'];
+        // $newComment->isRemovable = $commentData['isRemovable'];
+
+        try {
+            $newComment->save();
+            return response()
+                ->json($newComment);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function update(CkComment $comment, Request $request)
+    {
+        $commentData = $request->all();
+
+        $comment->attributes = json_encode($commentData['attributes'] ?? []);
+        $comment->content = $commentData['content'];
+        // $comment->isEditable = $commentData['isEditable'];
+        // $comment->isReadOnly = $commentData['isReadOnly'];
+        // $comment->isRemovable = $commentData['isRemovable'];
+
+        try {
+            $comment->save();
+            return response()
+                ->json($comment);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy(CkComment $comment)
+    {
+        $commentId = $comment->id;
+
+        try {
+            $comment->delete();
+            return response()->json([
+                'id' => $commentId,
+            ], 200);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+}

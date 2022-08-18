@@ -1,0 +1,39 @@
+<?php
+
+use App\Http\Controllers\CkCommentController;
+use App\Http\Controllers\CkSuggestionController;
+use Illuminate\Support\Facades\Route;
+
+/**
+ * URL Prefix  : `/ck`
+ * Name Prefix : `ck`
+ */
+
+//  Comments
+Route::get('/comment/{comment}', [ CkCommentController::class, 'index' ])
+    ->name('.comment');
+
+Route::get('/comment/thread-comments/{threadId}', [ CkCommentController::class, 'getCommentsByThread' ])
+    ->name('.thread-comments');
+
+Route::post('/comment/create', [ CkCommentController::class, 'create' ])
+    ->name('.comment.create');
+
+Route::post('/comment/update/{comment}', [ CkCommentController::class, 'update' ])
+    ->name('.comment.update');
+
+Route::post('/comment/destroy/{comment}', [ CkCommentController::class, 'destroy' ])
+    ->name('.comment.destroy');
+
+// Track Changes
+Route::get('/suggestion/{suggestion}', [ CkSuggestionController::class, 'index' ])
+    ->name('.suggestion');
+
+Route::post('/suggestion/create', [ CkSuggestionController::class, 'create' ])
+    ->name('.suggestion.create');
+
+Route::post('/suggestion/update/{suggestion}', [ CkSuggestionController::class, 'update' ])
+    ->name('.suggestion.update');
+
+Route::post('/suggestion/destroy/{suggestion}', [ CkSuggestionController::class, 'destroy' ])
+    ->name('.suggestion.destroy');
