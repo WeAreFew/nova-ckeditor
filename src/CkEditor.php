@@ -2,6 +2,7 @@
 
 namespace Mostafaznv\NovaCkEditor;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
@@ -161,6 +162,17 @@ class CkEditor extends Field
      */
     public function jsonSerialize(): array
     {
+        $allUsers = User::all();
+        $users = [];
+
+        foreach ($allUsers as $user)
+        {
+            $users[] = [
+                'id' => 'user-' . $user->id,
+                'name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        }
+
         return array_merge(parent::jsonSerialize(), [
             'snippetBrowser'         => $this->snippetBrowser,
             'imageBrowser'           => $this->imageBrowser,
@@ -172,10 +184,11 @@ class CkEditor extends Field
             'shouldShow'             => $this->shouldBeExpanded(),
             'videoHasLaruploadTrait' => $this->hasLaruploadTrait('App\Models\Video'),
             'user'                   => Auth::user(),
+            'users'                  => $users,
             'licenseKey'             => [
-                                            'tokenUrl' => config('nova-ckeditor.licenseKey.tokenUrl'),
-                                            'uploadUrl' => config('nova-ckeditor.licenseKey.uploadUrl'),
-                                            'webSocketUrl' => config('nova-ckeditor.licenseKey.webSocketUrl'),
+                                            'trackChanges' => config('nova-ckeditor.licenseKey.trackChanges'),
+                                            'comments' => config('nova-ckeditor.licenseKey.comments'),
+                                            'revisionHistory' => config('nova-ckeditor.licenseKey.revisionHistory'),
                                         ],
         ]);
     }

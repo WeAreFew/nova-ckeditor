@@ -268,8 +268,17 @@ return [
     ],
 
     'licenseKey' => [
-        'tokenUrl' => '',
-        'uploadUrl' => '',
-        'webSocketUrl' => '',
+        'trackChanges' => [
+            'dev' => '',
+            'prod' => '',
+        ],
+        'comments' => [
+            'dev' => '',
+            'prod' => '',
+        ],
+        'revisionHistory' => [
+            'dev' => '',
+            'prod' => '',
+        ],
     ],
 ];

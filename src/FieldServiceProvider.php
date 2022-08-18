@@ -45,6 +45,8 @@ class FieldServiceProvider extends ServiceProvider
         ], 'nova-ckeditor-config');
 
         $this->publishes([
+            # routes
+            __DIR__ . '/../stubs/routes/ckeditor.stub' => base_path('routes/web/ckeditor.php'),
 
             # views
             __DIR__ . '/../stubs/views' => resource_path('views/ckeditor'),
@@ -56,6 +58,10 @@ class FieldServiceProvider extends ServiceProvider
             # models
             __DIR__ . '/../stubs/models/Image.stub' => app_path('Models/Image.php'),
             __DIR__ . '/../stubs/models/Video.stub' => app_path('Models/Video.php'),
+            
+            # controllers
+            __DIR__ . '/../stubs/controllers/CkCommentController.stub' => app_path('Http/Controllers/CkCommentController.php'),
+            __DIR__ . '/../stubs/controllers/CkSuggestionController.stub' => app_path('Http/Controllers/CkSuggestionController.php'),
             
             # resources
             __DIR__ . '/../stubs/resources/Image.stub' => app_path('Nova/Resources/Image.php'),
