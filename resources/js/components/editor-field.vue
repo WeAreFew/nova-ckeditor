@@ -27,12 +27,13 @@ import CkEditor from '../ckeditor/ckeditor'
 import SnippetBrowser from "./snippet-browser"
 import MediaBrowser from "./media-browser"
 import HasUUID from "./mixins/hasUUID"
+import CommentsAdapter from "../ckeditor/plugins/CommentsAdapter"
+import TrackChangesAdapter from "../ckeditor/plugins/TrackChangesAdapter"
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
-import CryptoJS from 'crypto-js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, HasUUID],
-    props: ['resourceName', 'resourceId', 'field', 'toolbar', 'user', 'licenseKey'],
+    props: ['resourceName', 'resourceId', 'field', 'toolbar', 'user', 'users', 'licenseKey'],
     components: {SnippetBrowser, MediaBrowser},
     methods: {
         setInitialValue() {
@@ -61,7 +62,6 @@ export default {
         this.$options.uuid = this.uuid()
     },
     mounted() {
-        const userInfo = `user.id=${this.field.user.id}&user.name=${this.field.user.first_name} ${this.field.user.last_name}&role=writer`
         const config = {
             attribute: this.$options.uuid,
             imageBrowser: this.field.imageBrowser,
@@ -73,23 +73,30 @@ export default {
             },
             toolbar: {items: this.field.toolbar},
             sidebar: {container: this.$refs.sidebar},
-            cloudServices: {
-                tokenUrl: this.field.licenseKey.tokenUrl + '?' + userInfo,
-                uploadUrl: this.field.licenseKey.uploadUrl,
-                webSocketUrl: this.field.licenseKey.webSocketUrl
-            },
-            collaboration: {
-                channelId: CryptoJS.MD5(`${this.resourceName}_${this.resourceId}`).toString()
-            },
-            presenceList: {
-                container: this.$refs.presenceList
-            },
-            revisionHistory: {
-                editorContainer: this.$refs.editor,
-                viewerContainer: this.$refs.revision,
-                viewerEditorElement: this.$refs.revisionViewer,
-                viewerSidebarContainer: this.$refs.revisionSidebar
-            },
+            extraPlugins: [ TrackChangesAdapter, CommentsAdapter ],
+            initialData: this.field.value,
+            licenseKey: this.field.licenseKey.trackChanges.dev,
+            userId: this.field.user.id,
+            allUsers: this.field.users,
+            resourceName: this.field.resourceName,
+            resrouceId: this.field.resrouceId,
+            // cloudServices: {
+            //     tokenUrl: this.field.licenseKey.tokenUrl + '?' + userInfo,
+            //     uploadUrl: this.field.licenseKey.uploadUrl,
+            //     webSocketUrl: this.field.licenseKey.webSocketUrl
+            // },
+            // collaboration: {
+            //     channelId: CryptoJS.MD5(`${this.resourceName}_${this.resourceId}`).toString()
+            // },
+            // presenceList: {
+            //     container: this.$refs.presenceList
+            // },
+            // revisionHistory: {
+            //     editorContainer: this.$refs.editor,
+            //     viewerContainer: this.$refs.revision,
+            //     viewerEditorElement: this.$refs.revisionViewer,
+            //     viewerSidebarContainer: this.$refs.revisionSidebar
+            // },
             ...this.field.toolbarOptions
         }
 
@@ -113,6 +120,8 @@ export default {
                         writer.setStyle('height', `${this.field.height}px`, editor.editing.view.document.getRoot());
                     });
                 }
+
+                
             })
             .catch((e) => {
                 this.$toasted.show(e.toString(), {type: 'error'})

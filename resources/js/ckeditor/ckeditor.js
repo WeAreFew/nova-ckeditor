@@ -66,16 +66,11 @@ import ElementAddAttributes from './plugins/element-attribute/src/add-attribute-
 import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport'
 
 // Collaboration
-import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices'
 import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges'
 import Comments from '@ckeditor/ckeditor5-comments/src/comments'
-import RevisionHistory from '@ckeditor/ckeditor5-revision-history/src/revisionhistory'
+// import RevisionHistory from '@ckeditor/ckeditor5-revision-history/src/revisionhistory'
 
-import RealTimeCollaborativeEditing from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting'
-import RealTimeCollaborationConfig from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativeediting'
-import RealTimeCollaborativeTrackChanges from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativetrackchanges'
-// import RealTimeCollaborativeRevisionHistory from '@ckeditor/ckeditor5-real-time-collaboration/src/realtimecollaborativerevisionhistory'
-import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist'
+// import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist'
 
 // Extend the Base Class
 export default class CkEditor extends ClassicEditorBase {
@@ -153,12 +148,12 @@ export default class CkEditor extends ClassicEditorBase {
             // CloudServices,
             TrackChanges,
             Comments,
-            RevisionHistory,
-            PresenceList,
-            RealTimeCollaborationConfig,
-            RealTimeCollaborativeEditing,
+            // RevisionHistory,
+            // PresenceList,
+            // RealTimeCollaborationConfig,
+            // RealTimeCollaborativeEditing,
             // RealTimeCollaborativeRevisionHistory,
-            RealTimeCollaborativeTrackChanges
+            // RealTimeCollaborativeTrackChanges
         ]
     }
 }
