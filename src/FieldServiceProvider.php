@@ -46,7 +46,7 @@ class FieldServiceProvider extends ServiceProvider
 
         $this->publishes([
             # routes
-            __DIR__ . '/../stubs/routes/ckeditor.stub' => base_path('routes/web/ckeditor.php'),
+            // __DIR__ . '/../stubs/routes/ckeditor.stub' => base_path('routes/web/ckeditor.php'),
 
             # views
             __DIR__ . '/../stubs/views' => resource_path('views/ckeditor'),
