@@ -122,10 +122,11 @@ export default {
                     });
                 }
 
-                
+
             })
             .catch((e) => {
                 this.$toasted.show(e.toString(), {type: 'error'})
+                throw(e)
             })
     },
     beforeDestroy() {
