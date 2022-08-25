@@ -51,6 +51,9 @@ export default class RevisionHistoryAdapter {
                     }
                 ]);
             },
+            addRevision: () => {
+                console.log('add revision');
+            },
             getRevision: ( { revisionId } ) => {
                 // Get revision data, based on its id.
                 // This should be an asynchronous request to your database.
