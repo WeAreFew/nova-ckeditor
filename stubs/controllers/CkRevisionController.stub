@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CkRevision;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class CkRevisionController extends Controller
+{
+    public function index (CkRevision $revision)
+    {
+        return $revision->toJson();
+    }
+
+    public function create (Request $request)
+    {
+        $author = Auth::user();
+        $revisionData = $request->all();
+
+        $newRevision = new CkRevision();
+        $newRevision->id = $revisionData['id'];
+        $newRevision->attributes = json_encode($revisionData['attributes']);
+        $newRevision->authors = json_encode(['user-' . $author->id]);
+        $newRevision->creator = 'user-' . $author->id;
+        $newRevision->diffData = json_encode($revisionData['diffData']);
+        $newRevision->fromVersion = $revisionData['fromVersion'];
+        $newRevision->name = $revisionData['name'];
+        $newRevision->toVersion = $revisionData['toVersion'];
+
+        try {
+            $newRevision->save();
+            return response()
+                ->json($newRevision);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function update (CkRevision $revision, Request $request)
+    {
+        $author = Auth::user();
+        $authors = json_decode($revision->authors);
+
+        $revisionData = $request->all();
+
+        $revision->attributes = json_encode($revisionData['attributes']);
+        if (!in_array($author->id, $authors)) {
+            array_push($authors, $author->id);
+        }
+        $revision->authors = json_encode($authors);
+        $revision->diffData = json_encode($revisionData['diffData']);
+        $revision->fromVersion = $revisionData['fromVersion'];
+        $revision->name = $revisionData['name'];
+        $revision->toVersion = $revisionData['toVersion'];
+
+        try {
+            $revision->save();
+            return response()
+                ->json($revision);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+
+    public function destroy (CkRevision $revision)
+    {
+        $revisionId = $revision->id;
+
+        try {
+            $revision->delete();
+            return response()->json([
+                'id' => $revisionId,
+            ], 200);
+        } catch (Exception $e) {
+            return response()
+                ->json(['errors' => $e->getMessage()]);
+        }
+    }
+}

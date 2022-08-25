@@ -37,3 +37,17 @@ Route::post('/suggestion/update/{suggestion}', [ CkSuggestionController::class, 
 
 Route::post('/suggestion/destroy/{suggestion}', [ CkSuggestionController::class, 'destroy' ])
     ->name('.suggestion.destroy');
+
+// Revision History
+Route::get('/revision/{revision}', [ CkRevisionController::class, 'index' ])
+->name('.revision');
+
+Route::post('/revision/create', [ CkRevisionController::class, 'create' ])
+->name('.revision.create');
+
+Route::post('/revision/update/{revision}', [ CkRevisionController::class, 'update' ])
+->name('.revision.update');
+
+Route::post('/revision/destroy/{revision}', [ CkRevisionController::class, 'destroy' ])
+->name('.revision.destroy');
+

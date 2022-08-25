@@ -68,7 +68,7 @@ import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtml
 // Collaboration
 import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges'
 import Comments from '@ckeditor/ckeditor5-comments/src/comments'
-// import RevisionHistory from '@ckeditor/ckeditor5-revision-history/src/revisionhistory'
+import RevisionHistory from '@ckeditor/ckeditor5-revision-history/src/revisionhistory'
 
 // import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist'
 
@@ -148,7 +148,7 @@ export default class CkEditor extends ClassicEditorBase {
             // CloudServices,
             TrackChanges,
             Comments,
-            // RevisionHistory,
+            RevisionHistory,
             // PresenceList,
             // RealTimeCollaborationConfig,
             // RealTimeCollaborativeEditing,

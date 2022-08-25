@@ -29,6 +29,7 @@ import MediaBrowser from "./media-browser"
 import HasUUID from "./mixins/hasUUID"
 import CommentsAdapter from "../ckeditor/plugins/CommentsAdapter"
 import TrackChangesAdapter from "../ckeditor/plugins/TrackChangesAdapter"
+import RevisionHistoryAdapter from "../ckeditor/plugins/RevisionHistoryAdapter"
 import {FormField, HandlesValidationErrors} from 'laravel-nova'
 
 export default {
@@ -73,9 +74,9 @@ export default {
             },
             toolbar: {items: this.field.toolbar},
             sidebar: {container: this.$refs.sidebar},
-            extraPlugins: [ TrackChangesAdapter, CommentsAdapter ],
+            extraPlugins: [ TrackChangesAdapter, CommentsAdapter, RevisionHistoryAdapter ],
             initialData: this.field.value,
-            licenseKey: this.field.licenseKey.trackChanges.dev,
+            licenseKey: this.field.licenseKey.revisionHistory.dev,
             userId: this.field.user.id,
             allUsers: this.field.users,
             resourceName: this.field.resourceName,
@@ -91,12 +92,12 @@ export default {
             // presenceList: {
             //     container: this.$refs.presenceList
             // },
-            // revisionHistory: {
-            //     editorContainer: this.$refs.editor,
-            //     viewerContainer: this.$refs.revision,
-            //     viewerEditorElement: this.$refs.revisionViewer,
-            //     viewerSidebarContainer: this.$refs.revisionSidebar
-            // },
+            revisionHistory: {
+                editorContainer: this.$refs.editor,
+                viewerContainer: this.$refs.revision,
+                viewerEditorElement: this.$refs.revisionViewer,
+                viewerSidebarContainer: this.$refs.revisionSidebar
+            },
             ...this.field.toolbarOptions
         }
 

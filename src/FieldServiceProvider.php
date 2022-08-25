@@ -56,16 +56,19 @@ class FieldServiceProvider extends ServiceProvider
             __DIR__ . '/../stubs/migrations/2021_01_01_000000_create_videos_table.stub' => database_path('migrations/2021_01_01_000000_create_videos_table.php'),
             __DIR__ . '/../stubs/migrations/2022_08_17_000000_create_ck_comments_table.stub' => database_path('migrations/2022_08_17_000000_create_ck_comments_table.php'),
             __DIR__ . '/../stubs/migrations/2022_08_17_000000_create_ck_suggestions_table.stub' => database_path('migrations/2022_08_17_000000_create_ck_suggestions_table.php'),
+            __DIR__ . '/../stubs/migrations/2022_08_22_000000_create_ck_revisions_table.stub' => database_path('migrations/2022_08_22_000000_create_ck_revisions_table.php'),
 
             # models
             __DIR__ . '/../stubs/models/Image.stub' => app_path('Models/Image.php'),
             __DIR__ . '/../stubs/models/Video.stub' => app_path('Models/Video.php'),
             __DIR__ . '/../stubs/models/CkComment.stub' => app_path('Models/CkComment.php'),
             __DIR__ . '/../stubs/models/CkSuggestion.stub' => app_path('Models/CkSuggestion.php'),
+            __DIR__ . '/../stubs/models/CkRevision.stub' => app_path('Models/CkRevision.php'),
             
             # controllers
             __DIR__ . '/../stubs/controllers/CkCommentController.stub' => app_path('Http/Controllers/CkCommentController.php'),
             __DIR__ . '/../stubs/controllers/CkSuggestionController.stub' => app_path('Http/Controllers/CkSuggestionController.php'),
+            __DIR__ . '/../stubs/controllers/CkRevisionController.stub' => app_path('Http/Controllers/CkRevisionController.php'),
             
             # resources
             __DIR__ . '/../stubs/resources/Image.stub' => app_path('Nova/Resources/Image.php'),
