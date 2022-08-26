@@ -162,7 +162,7 @@ export default {
 .ck.ck-editor
     position: relative
     z-index: 10
-    width: 60%
+    width: 70%
 
 .ckContainer
     .ck.ck-editor
