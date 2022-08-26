@@ -75,7 +75,7 @@ export default {
             toolbar: {items: this.field.toolbar},
             sidebar: {container: this.$refs.sidebar},
             extraPlugins: [ TrackChangesAdapter, CommentsAdapter, RevisionHistoryAdapter ],
-            initialData: this.field.value,
+            initialData: this.field.value ? this.field.value : ' ',
             licenseKey: this.field.licenseKey.revisionHistory.dev,
             userId: this.field.user.id,
             allUsers: this.field.users,
