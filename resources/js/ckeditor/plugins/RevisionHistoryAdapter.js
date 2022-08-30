@@ -53,6 +53,7 @@ export default class RevisionHistoryAdapter {
             },
             addRevision: () => {
                 console.log('add revision');
+                return Promise.resolve();
             },
             getRevision: ( { revisionId } ) => {
                 // Get revision data, based on its id.
