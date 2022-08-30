@@ -192,6 +192,7 @@ export default {
     width: 100%
     justify-content: center
     align-items: stretch
+    min-height: 300px
 
 .editorSidebar
     padding: 0 10px
