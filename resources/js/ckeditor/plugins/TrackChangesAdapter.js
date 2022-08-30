@@ -4,8 +4,8 @@ export default class TrackChangesAdapter {
     }
 
     init() {
+
         const usersPlugin = this.editor.plugins.get('Users');
-        const trackChangesPlugin = this.editor.plugins.get('TrackChanges');
         const allUsers = this.editor.config.get('allUsers');
         const Me = this.editor.config.get('userId');
 
@@ -17,57 +17,62 @@ export default class TrackChangesAdapter {
         // Set the current user.
         usersPlugin.defineMe( `user-${Me}` );
 
-        // Set the adapter to the `TrackChanges#adapter` property.
-        trackChangesPlugin.adapter = {
-            async sendPostRequest (url, data) {
-                const res = await fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                        'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").content
-                    }
-                });
+        if(this.editor.plugins.has('TrackChanges')){
 
-                return await res.json();
-            },
+            const trackChangesPlugin = this.editor.plugins.get('TrackChanges');
 
-            async getSuggestion (suggestionId) {
-                console.log( 'Getting suggestion', suggestionId );
+            // Set the adapter to the `TrackChanges#adapter` property.
+            trackChangesPlugin.adapter = {
+                async sendPostRequest (url, data) {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").content
+                        }
+                    });
 
-                const response = await fetch(`/ck/suggestion/${suggestionId}`);
-                const data = await response.json();
+                    return await res.json();
+                },
 
-                return {
-                    id: suggestionId,
-                    type: data.type,
-                    authorId: data.authorId,
-                    createdAt: new Date(data.created_at),
-                    data: data.data,
-                    attributes: data.attributes
-                };
-                
-            },
+                async getSuggestion (suggestionId) {
+                    console.log( 'Getting suggestion', suggestionId );
 
-            async addSuggestion (suggestionData) {
-                console.log( 'Suggestion added', suggestionData );
+                    const response = await fetch(`/ck/suggestion/${suggestionId}`);
+                    const data = await response.json();
 
-                const response = this.sendPostRequest('/ck/suggestion/create', suggestionData);
+                    return {
+                        id: suggestionId,
+                        type: data.type,
+                        authorId: data.authorId,
+                        createdAt: new Date(data.created_at),
+                        data: data.data,
+                        attributes: data.attributes
+                    };
 
-                return {
-                    createdAt: new Date()       // Should be set on the server side.
-                };
-            },
+                },
 
-            async updateSuggestion ( id, suggestionData ) {
-                console.log( 'Suggestion updated', id, suggestionData );
+                async addSuggestion (suggestionData) {
+                    console.log( 'Suggestion added', suggestionData );
 
-                const response = this.sendPostRequest(`/ck/suggestion/update/${id}`, suggestionData);
+                    const response = this.sendPostRequest('/ck/suggestion/create', suggestionData);
 
-                return {
-                    createdAt: new Date()       // Should be set on the server side.
-                };
-            }
-        };
+                    return {
+                        createdAt: new Date()       // Should be set on the server side.
+                    };
+                },
+
+                async updateSuggestion ( id, suggestionData ) {
+                    console.log( 'Suggestion updated', id, suggestionData );
+
+                    const response = this.sendPostRequest(`/ck/suggestion/update/${id}`, suggestionData);
+
+                    return {
+                        createdAt: new Date()       // Should be set on the server side.
+                    };
+                }
+            };
+        }
     }
 }
