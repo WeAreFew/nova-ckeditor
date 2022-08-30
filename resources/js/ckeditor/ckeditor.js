@@ -140,7 +140,7 @@ export default class CkEditor extends ClassicEditorBase {
             Table,
             TableToolbar,
             HtmlEmbed,
-            SourceEditing,
+            // SourceEditing,
             Indent,
             IndentBlock,
             ElementAddAttributes,
