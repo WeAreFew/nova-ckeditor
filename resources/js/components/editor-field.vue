@@ -80,15 +80,15 @@ export default {
             userId: this.field.user.id,
             allUsers: this.field.users,
             resourceName: this.field.resourceName,
-            resrouceId: this.field.resrouceId,
+            resourceId: this.field.resourceId,
             // cloudServices: {
             //     tokenUrl: this.field.licenseKey.tokenUrl + '?' + userInfo,
             //     uploadUrl: this.field.licenseKey.uploadUrl,
             //     webSocketUrl: this.field.licenseKey.webSocketUrl
             // },
-            // collaboration: {
-            //     channelId: CryptoJS.MD5(`${this.resourceName}_${this.resourceId}`).toString()
-            // },
+            collaboration: {
+                channelId: this.resourceId ? (this.resourceName + '_' + this.resourceId) : 'testChannelId',
+            },
             // presenceList: {
             //     container: this.$refs.presenceList
             // },

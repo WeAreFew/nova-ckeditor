@@ -11,6 +11,7 @@ export default class TrackChangesAdapter {
 
         // Load the users data.
         for ( const user of allUsers ) {
+            // console.log(user);
             usersPlugin.addUser( user );
         }
 
