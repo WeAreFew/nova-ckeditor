@@ -8,7 +8,7 @@ export default {
         },
         toolbar: [
             'imageBrowser',
-            'imageStyle:full',
+            // 'imageStyle:full',
             'imageStyle:alignLeft',
             'imageStyle:alignCenter',
             'imageStyle:alignRight',
