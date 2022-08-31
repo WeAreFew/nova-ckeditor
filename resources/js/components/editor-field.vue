@@ -42,6 +42,7 @@ export default {
 
         fill(formData) {
             formData.append(this.field.attribute, this.value || '')
+            formData.append(this.field.attribute + '_channelId', this.$options.editor.config.get('collaboration').channelId || '')
         },
 
         handleChange(value) {

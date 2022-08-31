@@ -219,4 +219,18 @@ class CkEditor extends Field
 
         return $snippets;
     }
+
+
+    protected function fillAttributeFromRequest($request,
+                                                $requestAttribute,
+                                                $model,
+                                                $attribute)
+    {
+        if ($request->exists($requestAttribute)) {
+            $model->{$attribute} = $request[$requestAttribute];
+        }
+        if ($request->exists($requestAttribute.'_channelId')) {
+            $model->{$attribute.'_channel_id'} = $request[$requestAttribute.'_channelId'];
+        }
+    }
 }
