@@ -1,23 +1,22 @@
 <template>
     <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
-            <div ref="presenceList"></div>
 
-            <div class="ckContainer">
+            <div class="ckContainer" ref="editorContainer">
                 <div ref="editor" class="hidden mainEditor" :id="field.attribute" :class="errorClasses" :value="value" />
                 <div ref="sidebar" class="editorSidebar"></div>
             </div>
-
-            <media-browser @select="$options.editor.execute('imageBrowser', $event)" type="image" :field-key="$options.uuid + '-image'" :multiple="true" />
-            <media-browser @select="$options.editor.execute('videoBrowser', $event)" type="video" :field-key="$options.uuid + '-video'" :multiple="true" :has-larupload-trait="field.videoHasLaruploadTrait" />
-            <snippet-browser :field-key="$options.uuid" :snippets="field.snippetBrowser" />
-
             <div ref="revision" id="revision-viewer-container">
                 <div class="ckContainer">
                     <div ref="revisionEditor" class="revisionEditor"></div>
                     <div ref="revisionSidebar" class="editorSidebar"></div>
                 </div>
             </div>
+
+            <media-browser @select="$options.editor.execute('imageBrowser', $event)" type="image" :field-key="$options.uuid + '-image'" :multiple="true" />
+            <media-browser @select="$options.editor.execute('videoBrowser', $event)" type="video" :field-key="$options.uuid + '-video'" :multiple="true" :has-larupload-trait="field.videoHasLaruploadTrait" />
+            <snippet-browser :field-key="$options.uuid" :snippets="field.snippetBrowser" />
+
         </template>
     </default-field>
 </template>
@@ -81,21 +80,13 @@ export default {
             allUsers: this.field.users,
             resourceName: this.field.resourceName,
             resourceId: this.field.resourceId,
-            // cloudServices: {
-            //     tokenUrl: this.field.licenseKey.tokenUrl + '?' + userInfo,
-            //     uploadUrl: this.field.licenseKey.uploadUrl,
-            //     webSocketUrl: this.field.licenseKey.webSocketUrl
-            // },
             collaboration: {
                 channelId: this.resourceId ? (this.resourceName + '_' + this.resourceId) : 'testChannelId',
             },
-            // presenceList: {
-            //     container: this.$refs.presenceList
-            // },
             revisionHistory: {
-                editorContainer: this.$refs.editor,
+                editorContainer: this.$refs.editorContainer,
                 viewerContainer: this.$refs.revision,
-                viewerEditorElement: this.$refs.revisionViewer,
+                viewerEditorElement: this.$refs.revisionEditor,
                 viewerSidebarContainer: this.$refs.revisionSidebar
             },
             ...this.field.toolbarOptions
