@@ -61,6 +61,7 @@ class CkEditor extends Field
      */
     public array $snippetBrowser = [];
 
+    public $channelId;
 
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
@@ -181,6 +182,7 @@ class CkEditor extends Field
             'toolbarOptions'         => config('nova-ckeditor.toolbar.options'),
             'height'                 => $this->height,
             'contentLanguage'        => $this->contentLanguage,
+            'channelId'              => $this->channelId,
             'shouldShow'             => $this->shouldBeExpanded(),
             'videoHasLaruploadTrait' => $this->hasLaruploadTrait('App\Models\Video'),
             'user'                   => Auth::user(),
@@ -232,5 +234,11 @@ class CkEditor extends Field
         if ($request->exists($requestAttribute.'_channelId')) {
             $model->{$attribute.'_channel_id'} = $request[$requestAttribute.'_channelId'];
         }
+    }
+
+    public function channelId($id = null)
+    {
+        $this->channelId = $id;
+        return $this;
     }
 }

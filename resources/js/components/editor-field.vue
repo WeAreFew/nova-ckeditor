@@ -92,7 +92,7 @@ export default {
             resourceName: this.field.resourceName,
             resourceId: this.field.resourceId,
             collaboration: {
-                channelId: this.resourceId ? (this.resourceName + '_' + this.resourceId) : this.makeid(20),
+                channelId: this.field.channelId ? this.field.channelId : this.makeid(20),
             },
             revisionHistory: {
                 editorContainer: this.$refs.editorContainer,
