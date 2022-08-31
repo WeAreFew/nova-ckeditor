@@ -57,6 +57,16 @@ export default {
         handleEditorSync() {
             this.handleChange(this.$options.editor.getData())
         },
+
+        makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+           }
+           return result;
+        }
     },
     created() {
         this.$options.uuid = this.uuid()
@@ -81,7 +91,7 @@ export default {
             resourceName: this.field.resourceName,
             resourceId: this.field.resourceId,
             collaboration: {
-                channelId: this.resourceId ? (this.resourceName + '_' + this.resourceId) : 'testChannelId',
+                channelId: this.resourceId ? (this.resourceName + '_' + this.resourceId) : this.makeid(20),
             },
             revisionHistory: {
                 editorContainer: this.$refs.editorContainer,
