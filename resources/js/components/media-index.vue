@@ -30,9 +30,7 @@ export default {
     },
     created() {
         if (this.field.value) {
-            this.fetchResourceEntity('media', this.field.value).then(({url}) => {
-                this.preview = url
-            })
+            this.preview = this.field.url
         }
     },
 }

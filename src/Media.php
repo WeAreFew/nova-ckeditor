@@ -5,6 +5,7 @@ namespace Mostafaznv\NovaCkEditor;
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
 use Mostafaznv\Larupload\Traits\Larupload;
+use Illuminate\Support\Facades\Storage;
 
 class Media extends Field
 {
@@ -87,6 +88,7 @@ class Media extends Field
             'contentLanguage'        => $this->contentLanguage,
             'shouldShow'             => $this->shouldBeExpanded(),
             'videoHasLaruploadTrait' => $this->hasLaruploadTrait('App\Models\Video'),
+            'url' => $this->value ? Storage::disk('public')->url($this->value) : null,
         ]);
     }
 
