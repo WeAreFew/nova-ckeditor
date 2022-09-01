@@ -65,7 +65,7 @@ export default {
         },
 
         handleChange(selected) {
-            this.value = selected.id
+            this.value = selected.file
             this.preview = selected.url
         },
 
